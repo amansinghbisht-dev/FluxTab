@@ -24,7 +24,7 @@ To run the current development build of the dashboard locally, follow these step
 1. Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/FluxTab.git
+git clone https://github.com/amansinghbisht-dev/FluxTab.git
 ```
 
 2. Navigate into the project directory:
