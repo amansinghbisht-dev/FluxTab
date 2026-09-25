@@ -1,5 +1,6 @@
 # FluxTab: Adaptive Browser Workspace
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-View_Here-success?style=flat&logo=vercel&logoColor=white)](https://flux-tab.vercel.app/)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 ![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
