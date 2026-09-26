@@ -1,3 +1,4 @@
+import DefaultMenu from "./assets/menu/DefaultMenu";
 import DefaultSearchbar from "./assets/Searchbar/default";
 import DraggableWrapper from "./components/DraggableWrapper";
 import ResizableWrapper from "./components/ResizableWrapper";
@@ -25,6 +26,8 @@ const App = () => {
       <DraggableWrapper defaultPosition={{ x: 500, y: 500 }}>
         <DefaultSearchbar className="max-w-4xl shadow-red-500/50" />
       </DraggableWrapper>
+
+      <DefaultMenu />
     </div>
   );
 };
