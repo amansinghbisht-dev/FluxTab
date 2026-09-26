@@ -8,7 +8,7 @@ const DraggableWrapper = ({ children, defaultPosition}) => {
     <Draggable
       nodeRef={nodeRef}
       bounds="parent"
-      cancel=".react-resizable-handle"
+      cancel=".react-resizable-handle, .no-drag"
       defaultPosition={defaultPosition}
     >
       {React.cloneElement(children, { ref: nodeRef })}
