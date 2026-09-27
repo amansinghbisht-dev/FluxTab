@@ -5,7 +5,7 @@ const DefaultSearchbar = forwardRef(({ style, className, ...props }, ref) => {
   return (
     <div
       ref={ref}
-      className={`flex items-center w-3/7 px-4 py-3 bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl transition-colors duration-300 focus-within:bg-slate-900/70 focus-within:border-slate-500/50 ${className || ""}`}
+      className={`flex items-center w-3/7 px-4 py-3 bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl cursor-grab active:cursor-grabbing shadow-2xl transition-colors duration-300 focus-within:bg-slate-900/70 focus-within:border-slate-500/50 ${className || ""}`}
       style={style}
       {...props}
     >
@@ -20,7 +20,7 @@ const DefaultSearchbar = forwardRef(({ style, className, ...props }, ref) => {
         autoFocus
       />
 
-      <div className="hidden sm:flex items-center justify-center px-2 py-1 ml-3 bg-slate-800/80 rounded-md border border-slate-700 shrink-0">
+      <div className="hidden sm:flex items-center justify-center cursor-pointer px-2 py-1 ml-3 bg-slate-800/80 rounded-md border border-slate-700 shrink-0">
         <Command className="w-3 h-3 text-slate-400" />
       </div>
     </div>
