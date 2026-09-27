@@ -1,14 +1,15 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
 const DashboardContext = createContext();
 
 export function DashboardProvider({ children }) {
   const [widgets, setWidgets] = useState([]);
-  // This state tracks if we are just clicking around ('default') or drawing ('draw')
-  const [uiMode, setUiMode] = useState('default');
+  const [uiMode, setuiMode] = useState("default");
 
   return (
-    <DashboardContext.Provider value={{ widgets, setWidgets, uiMode, setUiMode }}>
+    <DashboardContext.Provider
+      value={{ widgets, setWidgets, uiMode, setuiMode }}
+    >
       {children}
     </DashboardContext.Provider>
   );
