@@ -34,7 +34,6 @@ const DefaultMenu = () => {
         />
       </button>
 
-      {/* Floating Menu Buttons (Vertical) */}
       <div
         className={`flex flex-col gap-3 transition-all duration-300 origin-bottom ${
           isOpen
