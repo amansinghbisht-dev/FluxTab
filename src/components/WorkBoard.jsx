@@ -1,43 +1,95 @@
+import { useState } from "react";
 import DefaultMenu from "../assets/menu/DefaultMenu";
 import DefaultNotepad from "../assets/Notepad/DefaultNotepad";
 import DefaultSearchbar from "../assets/Searchbar/default";
-import DraggableWrapper from "../components/DraggableWrapper";
-import ResizableWrapper from "../components/ResizableWrapper";
 import { useDashboard } from "../context/DashboardContext";
 
+
 const WorkBoard = () => {
-  const { uiMode } = useDashboard();
+  // Grab widgets and setWidgets from your context
+  const { uiMode, setUiMode, widgets, setWidgets } = useDashboard();
+  
+  // Local state for the drawing engine
+  const [isDrawing, setIsDrawing] = useState(false);
+  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+  const [drawBox, setDrawBox] = useState(null);
+
+  const handleMouseDown = (e) => {
+    if (uiMode !== "draw") return;
+    
+    setIsDrawing(true);
+    setStartPos({ x: e.clientX, y: e.clientY });
+    setDrawBox({ x: e.clientX, y: e.clientY, w: 0, h: 0 });
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDrawing) return;
+    
+    // The Math: Calculate origin and absolute size dynamically
+    setDrawBox({
+      x: Math.min(startPos.x, e.clientX),
+      y: Math.min(startPos.y, e.clientY),
+      w: Math.abs(e.clientX - startPos.x),
+      h: Math.abs(e.clientY - startPos.y),
+    });
+  };
+
+  const handleMouseUp = () => {
+    if (!isDrawing) return;
+    
+    // Anti-click safeguard: Only spawn if the box is actually drawn (e.g., larger than 50x50 pixels)
+    if (drawBox && drawBox.w > 50 && drawBox.h > 50) {
+      const newWidget = {
+        id: Date.now(), // Generate a unique ID
+        type: "notepad", 
+        x: drawBox.x,
+        y: drawBox.y,
+        w: drawBox.w,
+        h: drawBox.h
+      };
+      
+      // Add the new widget to your global context array
+      setWidgets([...widgets, newWidget]);
+    }
+    
+    // Reset the drawing state and return to default cursor mode
+    setIsDrawing(false);
+    setDrawBox(null);
+    setUiMode("default");
+  };
+
   return (
     <div
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
       className={`relative w-screen h-screen overflow-hidden bg-slate-950 ${
         uiMode === "draw" ? "cursor-crosshair" : "cursor-default"
       }`}
     >
-      <DraggableWrapper defaultPosition={{ x: 50, y: 50 }}>
-        <ResizableWrapper className="flex items-center justify-center">
-          <div className="p-5 hidden w-full h-full bg-purple-800 text-white font-extrabold items-center justify-center">
-            Drag and Resize me!!
-          </div>
-        </ResizableWrapper>
-      </DraggableWrapper>
-      <ResizableWrapper
-        className=" hidden items-center justify-center"
-        style={{ top: "250px", left: "50px" }}
-      >
-        <div className="p-5 w-full h-full bg-red-800 text-white font-extrabold flex items-center justify-center">
-          Resize me!!
-        </div>
-      </ResizableWrapper>
-
-      <DraggableWrapper defaultPosition={{ x: 500, y: 500 }}>
-        <DefaultSearchbar className="max-w-4xl shadow-red-500/50" />
-      </DraggableWrapper>
-
+      {widgets.map((widget) => (
+        <DefaultNotepad 
+          key={widget.id} 
+          initialX={widget.x} 
+          initialY={widget.y} 
+          initialW={widget.w} 
+          initialH={widget.h} 
+        />
+      ))}
       <DefaultMenu />
 
-      
-          <DefaultNotepad />
-        
+      {/* 2. The real-time visual "drawing box" */}
+      {isDrawing && drawBox && (
+        <div
+          className="absolute border-2 border-blue-500 bg-blue-500/20 rounded z-40 pointer-events-none"
+          style={{
+            left: `${drawBox.x}px`,
+            top: `${drawBox.y}px`,
+            width: `${drawBox.w}px`,
+            height: `${drawBox.h}px`,
+          }}
+        />
+      )}
     </div>
   );
 };
