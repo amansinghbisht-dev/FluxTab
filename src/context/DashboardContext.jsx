@@ -4,11 +4,11 @@ const DashboardContext = createContext();
 
 export function DashboardProvider({ children }) {
   const [widgets, setWidgets] = useState([]);
-  const [uiMode, setuiMode] = useState("default");
+  const [uiMode, setUiMode] = useState("default");
 
   return (
     <DashboardContext.Provider
-      value={{ widgets, setWidgets, uiMode, setuiMode }}
+      value={{ widgets, setWidgets, uiMode, setUiMode }}
     >
       {children}
     </DashboardContext.Provider>
