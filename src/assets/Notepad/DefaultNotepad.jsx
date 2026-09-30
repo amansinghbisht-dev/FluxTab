@@ -2,10 +2,10 @@ import { useRef, useState, useEffect } from "react";
 import DraggableWrapper from "../../components/DraggableWrapper";
 import ResizableWrapper from "../../components/ResizableWrapper";
 
-const DefaultNotepad = () => {
+const DefaultNotepad = ({initialX, initialY, initialW, initialH}) => {
   const textareaRef = useRef(null);
 
-  const [size, setSize] = useState({ width: 250, height: 150 });
+  const [size, setSize] = useState({ width: initialW, height: initialH });
   const [minHeight, setMinHeight] = useState(150);
 
   const adjustSize = () => {
@@ -42,7 +42,7 @@ const DefaultNotepad = () => {
   }, []);
 
   return (
-    <DraggableWrapper defaultPosition={{ x: 100, y: 100 }}>
+    <DraggableWrapper defaultPosition={{ x: initialX, y: initialY }}>
       <ResizableWrapper
         width={size.width}
         height={size.height}
