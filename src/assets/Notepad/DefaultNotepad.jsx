@@ -3,12 +3,20 @@ import DraggableWrapper from "../../components/DraggableWrapper";
 import ResizableWrapper from "../../components/ResizableWrapper";
 import { useDashboard } from "../../context/DashboardContext";
 
-const DefaultNotepad = ({id, initialX, initialY, initialW, initialH}) => {
+const DefaultNotepad = ({
+  id,
+  initialX,
+  initialY,
+  initialW,
+  initialH,
+  content,
+}) => {
   const textareaRef = useRef(null);
+  const [text, settext] = useState(content || "");
 
   const [size, setSize] = useState({ width: initialW, height: initialH });
   const [minHeight, setMinHeight] = useState(150);
-  const {updateWidget} = useDashboard()
+  const { updateWidget } = useDashboard();
 
   const adjustSize = () => {
     const textarea = textareaRef.current;
@@ -43,6 +51,24 @@ const DefaultNotepad = ({id, initialX, initialY, initialW, initialH}) => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    // Don't save on the initial mount if text is unchanged
+    if (text === content) return;
+
+    const timer = setTimeout(() => {
+      updateWidget(id, { content: text });
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [text]);
+
+  useEffect(() => {
+    // Adjust height on first load if there is pre-saved text
+    if (content) {
+      adjustSize();
+    }
+  }, []);
+
   const handleResizeStop = (event, { size: newSize }) => {
     updateWidget(id, { w: newSize.width, h: newSize.height });
   };
@@ -53,7 +79,10 @@ const DefaultNotepad = ({id, initialX, initialY, initialW, initialH}) => {
   };
 
   return (
-    <DraggableWrapper defaultPosition={{ x: initialX, y: initialY }} onStop={handleDragStop}>
+    <DraggableWrapper
+      defaultPosition={{ x: initialX, y: initialY }}
+      onStop={handleDragStop}
+    >
       <ResizableWrapper
         width={size.width}
         height={size.height}
@@ -68,7 +97,11 @@ const DefaultNotepad = ({id, initialX, initialY, initialW, initialH}) => {
 
           <textarea
             ref={textareaRef}
-            onInput={adjustSize}
+            value={text}
+            onChange={(e) => {
+              settext(e.target.value);
+              adjustSize;
+            }}
             className="w-full h-full p-4 bg-transparent resize-none no-drag outline-none text-slate-200 placeholder:text-slate-500 font-medium overflow-hidden block"
             placeholder="Jot down some notes..."
             spellCheck="false"

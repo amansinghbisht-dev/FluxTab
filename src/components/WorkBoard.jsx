@@ -75,6 +75,7 @@ const WorkBoard = () => {
           initialY={widget.y} 
           initialW={widget.w} 
           initialH={widget.h} 
+          content={widget.content}
         />
       ))}
       <DefaultMenu />
