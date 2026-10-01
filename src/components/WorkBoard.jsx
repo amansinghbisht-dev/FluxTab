@@ -69,11 +69,13 @@ const WorkBoard = () => {
     >
       {widgets.map((widget) => (
         <DefaultNotepad 
-          key={widget.id} 
+          key={widget.id}
+          id={widget.id}
           initialX={widget.x} 
           initialY={widget.y} 
           initialW={widget.w} 
           initialH={widget.h} 
+          content={widget.content}
         />
       ))}
       <DefaultMenu />

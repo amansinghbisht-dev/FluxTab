@@ -3,7 +3,7 @@ import { ResizableBox } from "react-resizable";
 
 const ResizableWrapper = forwardRef(
   (
-    { children, className, width, height, minConstraints, onResize, ...props },
+    { children, className, width, height, minConstraints, onResize, onResizeStop, ...props },
     ref,
   ) => {
     return (
@@ -14,6 +14,7 @@ const ResizableWrapper = forwardRef(
           minConstraints={minConstraints || [150, 100]}
           onResize={onResize}
           className={className}
+          onResizeStop={onResizeStop}
         >
           {children}
         </ResizableBox>
