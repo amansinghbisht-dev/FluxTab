@@ -1,30 +1,10 @@
 import { Search, Command } from "lucide-react";
 import { forwardRef } from "react";
 import DraggableWrapper from "../../components/DraggableWrapper";
+import { useDashboard } from "../../context/DashboardContext";
 
 const DefaultSearchbar = forwardRef(({ style, className, ...props }, ref) => {
-  const searchEngines = [
-    {
-      snippet: "yt",
-      homeLink: "https://www.youtube.com",
-      searchTag: "/results?search_query=",
-    },
-    {
-      snippet: "g",
-      homeLink: "https://www.google.com",
-      searchTag: "/search?q=",
-    },
-    {
-      snippet: "b",
-      homeLink: "https://www.bing.com",
-      searchTag: "/search?q=",
-    },
-    {
-      snippet: "wk",
-      homeLink: "https://en.wikipedia.org",
-      searchTag: "/wiki/Special:Search?search=",
-    },
-  ];
+  const { searchEngines } = useDashboard();
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
