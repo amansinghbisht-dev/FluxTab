@@ -3,6 +3,7 @@ import DraggableWrapper from "./components/DraggableWrapper";
 import ResizableWrapper from "./components/ResizableWrapper";
 
 const App = () => {
+
   return (
     <div className="h-screen w-screen bg-black overflow-hidden relative">
       <DraggableWrapper defaultPosition={{ x: 50, y: 50 }}>
