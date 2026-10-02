@@ -4,11 +4,10 @@ import DefaultNotepad from "../assets/Notepad/DefaultNotepad";
 import DefaultSearchbar from "../assets/Searchbar/default";
 import { useDashboard } from "../context/DashboardContext";
 
-
 const WorkBoard = () => {
   // Grab widgets and setWidgets from your context
   const { uiMode, setUiMode, widgets, setWidgets } = useDashboard();
-  
+
   // Local state for the drawing engine
   const [isDrawing, setIsDrawing] = useState(false);
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
@@ -16,7 +15,7 @@ const WorkBoard = () => {
 
   const handleMouseDown = (e) => {
     if (uiMode !== "draw") return;
-    
+
     setIsDrawing(true);
     setStartPos({ x: e.clientX, y: e.clientY });
     setDrawBox({ x: e.clientX, y: e.clientY, w: 0, h: 0 });
@@ -24,7 +23,7 @@ const WorkBoard = () => {
 
   const handleMouseMove = (e) => {
     if (!isDrawing) return;
-    
+
     // The Math: Calculate origin and absolute size dynamically
     setDrawBox({
       x: Math.min(startPos.x, e.clientX),
@@ -36,22 +35,22 @@ const WorkBoard = () => {
 
   const handleMouseUp = () => {
     if (!isDrawing) return;
-    
+
     // Anti-click safeguard: Only spawn if the box is actually drawn (e.g., larger than 50x50 pixels)
     if (drawBox && drawBox.w > 50 && drawBox.h > 50) {
       const newWidget = {
         id: Date.now(), // Generate a unique ID
-        type: "notepad", 
+        type: "notepad",
         x: drawBox.x,
         y: drawBox.y,
         w: drawBox.w,
-        h: drawBox.h
+        h: drawBox.h,
       };
-      
+
       // Add the new widget to your global context array
       setWidgets([...widgets, newWidget]);
     }
-    
+
     // Reset the drawing state and return to default cursor mode
     setIsDrawing(false);
     setDrawBox(null);
@@ -68,17 +67,18 @@ const WorkBoard = () => {
       }`}
     >
       {widgets.map((widget) => (
-        <DefaultNotepad 
+        <DefaultNotepad
           key={widget.id}
           id={widget.id}
-          initialX={widget.x} 
-          initialY={widget.y} 
-          initialW={widget.w} 
-          initialH={widget.h} 
+          initialX={widget.x}
+          initialY={widget.y}
+          initialW={widget.w}
+          initialH={widget.h}
           content={widget.content}
         />
       ))}
       <DefaultMenu />
+      <DefaultSearchbar />
 
       {/* 2. The real-time visual "drawing box" */}
       {isDrawing && drawBox && (
