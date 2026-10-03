@@ -4,7 +4,8 @@ import DraggableWrapper from "../../components/DraggableWrapper";
 import { useDashboard } from "../../context/DashboardContext";
 
 const DefaultSearchbar = forwardRef(({ style, className, ...props }, ref) => {
-  const { searchEngines } = useDashboard();
+  const {  searchEngines } = useDashboard();
+
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -35,7 +36,7 @@ const DefaultSearchbar = forwardRef(({ style, className, ...props }, ref) => {
     <DraggableWrapper>
       <div
         ref={ref}
-        className={`flex items-center w-3/7 px-4 py-3 bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl transition-colors duration-300 focus-within:bg-slate-900/70 focus-within:border-slate-500/50 ${className || ""}`}
+        className={`flex items-center w-3/7 px-4 py-3 bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl transition-colors duration-300 focus-within:bg-slate-900/70 focus-within:border-slate-500/50 cursor-grab active:cursor-grabbing ${className || ""}`}
         style={style}
         {...props}
       >

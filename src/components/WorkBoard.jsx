@@ -66,19 +66,29 @@ const WorkBoard = () => {
         uiMode === "draw" ? "cursor-crosshair" : "cursor-default"
       }`}
     >
-      {widgets.map((widget) => (
-        <DefaultNotepad
-          key={widget.id}
-          id={widget.id}
-          initialX={widget.x}
-          initialY={widget.y}
-          initialW={widget.w}
-          initialH={widget.h}
-          content={widget.content}
-        />
-      ))}
+      {widgets.map((widget) => {
+        if (widget.type === "notepad") {
+          return (
+            <DefaultNotepad
+              key={widget.id}
+              id={widget.id}
+              initialX={widget.x}
+              initialY={widget.y}
+              initialW={widget.w}
+              initialH={widget.h}
+              content={widget.content}
+            />
+          );
+        }
+
+        if (widget.type === "searchbar") {
+          return <DefaultSearchbar />;
+        }
+
+        return null;
+      })}
+
       <DefaultMenu />
-      <DefaultSearchbar />
 
       {/* 2. The real-time visual "drawing box" */}
       {isDrawing && drawBox && (

@@ -50,6 +50,26 @@ export function DashboardProvider({ children }) {
     );
   }, [searchEngines]);
 
+  useEffect(() => {
+    setWidgets((prevWidgets) => {
+      const hasSearchbar = prevWidgets.some((w) => w.type === "searchbar");
+
+      if (hasSearchbar) {
+        return prevWidgets;
+      }
+
+      return [
+        ...prevWidgets,
+        {
+          id: "default-searchbar",
+          type: "searchbar",
+          x: 0,
+          y: 0,
+        },
+      ];
+    });
+  }, []);
+
   const updateWidget = (id, newProps) => {
     setWidgets((prevWidgets) =>
       prevWidgets.map((widget) =>
