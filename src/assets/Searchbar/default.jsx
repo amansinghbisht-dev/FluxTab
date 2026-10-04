@@ -1,11 +1,9 @@
 import { Search, Command } from "lucide-react";
-import { forwardRef } from "react";
 import DraggableWrapper from "../../components/DraggableWrapper";
 import { useDashboard } from "../../context/DashboardContext";
 
-const DefaultSearchbar = forwardRef(({ style, className, ...props }, ref) => {
-  const {  searchEngines } = useDashboard();
-
+const DefaultSearchbar = ({ id, initialX, initialY }) => {
+  const { searchEngines, updateWidget } = useDashboard();
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -32,14 +30,16 @@ const DefaultSearchbar = forwardRef(({ style, className, ...props }, ref) => {
     }
   };
 
+  const handleDragStop = (event, data) => {
+    updateWidget(id, { x: data.x, y: data.y });
+  };
+
   return (
-    <DraggableWrapper>
-      <div
-        ref={ref}
-        className={`flex items-center w-3/7 px-4 py-3 bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl transition-colors duration-300 focus-within:bg-slate-900/70 focus-within:border-slate-500/50 cursor-grab active:cursor-grabbing ${className || ""}`}
-        style={style}
-        {...props}
-      >
+    <DraggableWrapper
+      defaultPosition={{ x: initialX, y: initialY }}
+      onStop={handleDragStop}
+    >
+      <div className="flex items-center w-3/7 px-4 py-3 bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl transition-colors duration-300 focus-within:bg-slate-900/70 focus-within:border-slate-500/50 cursor-grab active:cursor-grabbing">
         <Search className="w-5 h-5 text-slate-400 mr-3 shrink-0" />
 
         <input
@@ -58,7 +58,7 @@ const DefaultSearchbar = forwardRef(({ style, className, ...props }, ref) => {
       </div>
     </DraggableWrapper>
   );
-});
+};
 
 DefaultSearchbar.displayName = "DefaultSearchbar";
 

@@ -82,7 +82,14 @@ const WorkBoard = () => {
         }
 
         if (widget.type === "searchbar") {
-          return <DefaultSearchbar />;
+          return (
+            <DefaultSearchbar
+              key={widget.id}
+              id={widget.id}
+              initialX={widget.x}
+              initialY={widget.y}
+            />
+          );
         }
 
         return null;
