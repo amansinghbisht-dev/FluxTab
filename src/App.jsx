@@ -1,15 +1,12 @@
 import { DashboardProvider } from "./context/DashboardContext";
-import WorkBoard from "./components/WorkBoard";
+import WorkBoard from "./components/WorkBoard"; // Assuming this renders DefaultSearchbar
 
-const App = () => {
-
+function App() {
   return (
-    <>
-      <DashboardProvider>
-        <WorkBoard />
-      </DashboardProvider>
-    </>
+    <DashboardProvider>
+      <WorkBoard />
+    </DashboardProvider>
   );
-};
+}
 
 export default App;
