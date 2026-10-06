@@ -9,7 +9,7 @@ const DefaultMenu = () => {
 
   const toggleDrawMode = (widgetType) => {
     // We will eventually pass the specific widgetType (e.g., 'notepad') to the context here
-    setUiMode(uiMode === "draw" ? "default" : "draw");
+    setUiMode(uiMode === widgetType ? "default" : widgetType);
     console.log(`Draw mode activated for: ${widgetType}`);
 
     // Optional: Close the menus after selecting an option

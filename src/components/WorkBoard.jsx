@@ -14,7 +14,7 @@ const WorkBoard = () => {
   const [drawBox, setDrawBox] = useState(null);
 
   const handleMouseDown = (e) => {
-    if (uiMode !== "draw") return;
+    if (uiMode === "default") return;
 
     setIsDrawing(true);
     setStartPos({ x: e.clientX, y: e.clientY });
@@ -40,7 +40,7 @@ const WorkBoard = () => {
     if (drawBox && drawBox.w > 50 && drawBox.h > 50) {
       const newWidget = {
         id: Date.now(), // Generate a unique ID
-        type: "notepad",
+        type: uiMode,
         x: drawBox.x,
         y: drawBox.y,
         w: drawBox.w,
@@ -63,10 +63,23 @@ const WorkBoard = () => {
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       className={`relative w-screen h-screen overflow-hidden bg-slate-950 ${
-        uiMode === "draw" ? "cursor-crosshair" : "cursor-default"
+        uiMode === "default" ? "cursor-default" : "cursor-crosshair"
       }`}
     >
       {widgets.map((widget) => {
+        if (widget.type === "notepad") {
+          return (
+            <DefaultNotepad
+              key={widget.id}
+              id={widget.id}
+              initialX={widget.x}
+              initialY={widget.y}
+              initialW={widget.w}
+              initialH={widget.h}
+              content={widget.content}
+            />
+          );
+        }
         if (widget.type === "notepad") {
           return (
             <DefaultNotepad
