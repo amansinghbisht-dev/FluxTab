@@ -11,7 +11,6 @@ const DefaultChecklist = ({
   initialH,
   content,
 }) => {
-  // 1. Ensure content is always an array to prevent .map() from crashing on fresh spawn
   const tasks = Array.isArray(content) ? content : [];
 
   const [size, setSize] = useState({
@@ -21,25 +20,22 @@ const DefaultChecklist = ({
   const [newTask, setNewTask] = useState("");
   const { updateWidget } = useDashboard();
 
-  // 2. Handle adding a new task when Enter is pressed
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && newTask.trim() !== "") {
       e.preventDefault(); // Prevents a new line from forming
 
       const newTaskObj = {
-        taskId: Date.now(), // Generate a unique ID for the task itself
+        taskId: Date.now(),
         task: newTask.trim(),
         refresh: "Daily",
         done: false,
       };
 
-      // Spread the existing tasks, then add the new one
       updateWidget(id, { content: [...tasks, newTaskObj] });
       setNewTask(""); // Clear the input field
     }
   };
 
-  // 3. Handle toggling the "done" status
   const toggleTask = (taskId) => {
     const updatedTasks = tasks.map((t) =>
       t.taskId === taskId ? { ...t, done: !t.done } : t,
@@ -69,9 +65,8 @@ const DefaultChecklist = ({
         <ResizableWrapper
           width={size.width}
           height={size.height}
-          minConstraints={[250, 200]} // Minimum size for a checklist
+          minConstraints={[250, 200]} 
           onResizeStop={handleResizeStop}
-          // Removed onResize to stop the textarea height conflict; let the user drag to resize freely
         >
           <div className="flex flex-col w-full h-full bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden transition-colors duration-300 focus-within:bg-slate-900/70 focus-within:border-slate-500/50">
             {/* Drag Handle */}
