@@ -4,15 +4,14 @@ import { useDashboard } from "../../context/DashboardContext";
 
 const DefaultMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAddMenuOpen, setIsAddMenuOpen] = useState(false); // New state for the sub-menu
+  const [isAddMenuOpen, setIsAddMenuOpen] = useState(false); 
   const { uiMode, setUiMode } = useDashboard(); // Fixed capitalization
 
   const toggleDrawMode = (widgetType) => {
-    // We will eventually pass the specific widgetType (e.g., 'notepad') to the context here
+  
     setUiMode(uiMode === widgetType ? "default" : widgetType);
     console.log(`Draw mode activated for: ${widgetType}`);
 
-    // Optional: Close the menus after selecting an option
     setIsAddMenuOpen(false);
     setIsOpen(false);
   };
@@ -23,7 +22,7 @@ const DefaultMenu = () => {
       <button
         onClick={() => {
           setIsOpen(!isOpen);
-          if (isOpen) setIsAddMenuOpen(false); // Close sub-menu if main menu closes
+          if (isOpen) setIsAddMenuOpen(false);
         }}
         className="w-14 h-14 rounded-full bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 shadow-2xl flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors duration-300"
       >
@@ -46,7 +45,7 @@ const DefaultMenu = () => {
           <Pencil className="w-4 h-4" />
         </button>
 
-        {/* Add Button Container (Relative for horizontal sub-menu positioning) */}
+        {/* Add Button Container */}
         <div className="relative flex items-center justify-end">
           {/* Sub-menu (Horizontal Flyout to the left) */}
           <div
