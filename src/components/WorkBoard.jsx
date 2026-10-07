@@ -3,6 +3,7 @@ import DefaultMenu from "../assets/menu/DefaultMenu";
 import DefaultNotepad from "../assets/Notepad/DefaultNotepad";
 import DefaultSearchbar from "../assets/Searchbar/default";
 import { useDashboard } from "../context/DashboardContext";
+import DefaultChecklist from "../assets/checklist/Default";
 
 const WorkBoard = () => {
   // Grab widgets and setWidgets from your context
@@ -80,9 +81,9 @@ const WorkBoard = () => {
             />
           );
         }
-        if (widget.type === "notepad") {
+        if (widget.type === "checklist") {
           return (
-            <DefaultNotepad
+            <DefaultChecklist
               key={widget.id}
               id={widget.id}
               initialX={widget.x}
