@@ -4,11 +4,10 @@ import { useDashboard } from "../../context/DashboardContext";
 
 const DefaultMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAddMenuOpen, setIsAddMenuOpen] = useState(false); 
+  const [isAddMenuOpen, setIsAddMenuOpen] = useState(false);
   const { uiMode, setUiMode } = useDashboard(); // Fixed capitalization
 
   const toggleDrawMode = (widgetType) => {
-  
     setUiMode(uiMode === widgetType ? "default" : widgetType);
     console.log(`Draw mode activated for: ${widgetType}`);
 
@@ -41,7 +40,14 @@ const DefaultMenu = () => {
         }`}
       >
         {/* Edit Button */}
-        <button className="w-11 h-11 rounded-full bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 shadow-xl flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors duration-300">
+        <button
+          onClick={() => setUiMode(uiMode == "edit" ? "default" : "edit")}
+          className={`w-11 h-11 rounded-full backdrop-blur-xl border shadow-xl flex items-center justify-center transition-colors duration-300 z-10 ${
+            uiMode === "edit"
+              ? "bg-blue-600 border-blue-500 text-white hover:bg-blue-500"
+              : "bg-slate-900/80 border-slate-700/50 text-slate-400 hover:text-white hover:bg-slate-800/80"
+          }`}
+        >
           <Pencil className="w-4 h-4" />
         </button>
 
