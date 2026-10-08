@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useSyncExternalStore,
+} from "react";
 
 const DashboardContext = createContext();
 
@@ -8,6 +14,7 @@ export function DashboardProvider({ children }) {
     // If data exists, parse it back into an array. If not, start with an empty array.
     return savedWidgets ? JSON.parse(savedWidgets) : [];
   });
+  const [selectedWidget, setSelectedWidget] = useState(null);
 
   const [searchEngines, setSearchEngines] = useState(() => {
     const savedEngines = localStorage.getItem("Fluxtab_searchEngines");
@@ -87,6 +94,8 @@ export function DashboardProvider({ children }) {
         updateWidget,
         searchEngines,
         setSearchEngines,
+        selectedWidget,
+        setSelectedWidget,
       }}
     >
       {children}
