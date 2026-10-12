@@ -38,8 +38,9 @@ const DefaultSearchbar = ({ id, initialX, initialY }) => {
     <DraggableWrapper
       defaultPosition={{ x: initialX, y: initialY }}
       onStop={handleDragStop}
-    >
-      <div className="flex items-center w-3/7 px-4 py-3 bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl transition-colors duration-300 focus-within:bg-slate-900/70 focus-within:border-slate-500/50 cursor-grab active:cursor-grabbing">
+      id={id}
+      >
+      <div className="flex items-center w-[40vw] px-4 py-3 bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl transition-colors duration-300 focus-within:bg-slate-900/70 focus-within:border-slate-500/50 cursor-grab active:cursor-grabbing">
         <Search className="w-5 h-5 text-slate-400 mr-3 shrink-0" />
 
         <input
@@ -49,7 +50,7 @@ const DefaultSearchbar = ({ id, initialX, initialY }) => {
           autoComplete="off"
           spellCheck="false"
           autoFocus
-          onKeyDown={handleKeyDown} // 3. Attach the handler to the input
+          onKeyDown={handleKeyDown}
         />
 
         <div className="hidden sm:flex items-center justify-center px-2 py-1 ml-3 bg-slate-800/80 rounded-md border border-slate-700 shrink-0">

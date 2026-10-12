@@ -141,12 +141,9 @@ const DefaultChecklist = ({
     <DraggableWrapper
       defaultPosition={{ x: initialX, y: initialY }}
       onStop={handleDragStop}
-      bounds="parent"
+      id={id}
     >
-      <div
-        className="absolute top-0 left-0"
-        style={{ width: size.width, height: size.height }}
-      >
+      <div style={{ width: size.width, height: size.height }}>
         <ResizableWrapper
           width={size.width}
           height={size.height}
