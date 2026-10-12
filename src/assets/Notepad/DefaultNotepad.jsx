@@ -84,7 +84,9 @@ const DefaultNotepad = ({
       onStop={handleDragStop}
       id={id}
     >
-      <div style={{ width: size.width, height: size.height }}>
+      <div
+        style={{ width: size.width, height: size.height }}
+      > 
         <ResizableWrapper
           width={size.width}
           height={size.height}

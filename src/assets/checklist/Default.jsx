@@ -92,14 +92,13 @@ const DefaultChecklist = ({
       e.preventDefault();
 
       const newTaskObj = {
-        taskId: Date.now(), // Generate a unique ID for the task itself
+        taskId: Date.now(),
         task: newTask.trim(),
         refresh: selectedRefresh,
         done: false,
         lastCompleted: null,
       };
 
-      // Spread the existing tasks, then add the new one
       updateWidget(id, { content: [...tasks, newTaskObj] });
       setNewTask("");
     }
@@ -149,7 +148,6 @@ const DefaultChecklist = ({
           height={size.height}
           minConstraints={[280, 200]}
           onResizeStop={handleResizeStop}
-          // Removed onResize to stop the textarea height conflict; let the user drag to resize freely
         >
           <div className="flex flex-col w-full h-full bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden transition-colors duration-300 focus-within:bg-slate-900/70 focus-within:border-slate-500/50">
             {/* Drag Handle */}
